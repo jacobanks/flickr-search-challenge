@@ -10,7 +10,7 @@ import Foundation
 
 struct Networking {
 
-    static func request(_ searchTerms: String) -> AnyPublisher<[ImageData], Error> {
+    static func requestImages(_ searchTerms: String) -> AnyPublisher<[ImageData], Error> {
         var urlComponents = URLComponents(string: "https://api.flickr.com/services/feeds/photos_public.gne")
         urlComponents?.queryItems = [
             URLQueryItem(name: "format", value: "json"),

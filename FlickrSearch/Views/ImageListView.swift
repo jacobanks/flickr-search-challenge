@@ -18,7 +18,6 @@ struct ImageListView: View {
 
     var body: some View {
         imageGrid()
-            .progress($viewModel.isLoading)
             .navigationTitle("Home")
             .alert(
                 "Error Loading Images",
@@ -45,16 +44,20 @@ struct ImageListView: View {
                 }
             }
             .padding(12)
+            .progress($viewModel.isLoading)
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .refreshable { viewModel.loadImages(viewModel.searchTerms) }
         .searchable(text: $viewModel.searchTerms)
         .overlay {
             if viewModel.imageList.isEmpty && !viewModel.isLoading {
                 VStack(spacing: 12) {
                     Text("No Images To Display.")
-                    Button("Retry Loading", action: { viewModel.loadImages(viewModel.searchTerms) })
-                        .buttonStyle(.bordered)
+
+                    Button("Retry Loading") {
+                        viewModel.loadImages(viewModel.searchTerms)
+                    }
+                    .buttonStyle(.bordered)
                 }
             }
         }

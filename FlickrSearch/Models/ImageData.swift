@@ -20,10 +20,6 @@ struct ImageData: Codable, Identifiable {
     let author: String
     let tags: String
 
-    private enum CodingKeys: String, CodingKey {
-        case title, media, description, published, author, tags
-    }
-
     init(
         title: String,
         media: Media,
@@ -38,6 +34,10 @@ struct ImageData: Codable, Identifiable {
         self.published = published
         self.author = author
         self.tags = tags
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case title, media, description, published, author, tags
     }
 
     var publishedDate: String {
@@ -59,9 +59,9 @@ struct ImageData: Codable, Identifiable {
     var formattedDescription: String? {
         do {
             let doc: Document = try SwiftSoup.parse(description)
-            let elements = doc.body()?.children()
-            guard let elements, elements.count > 2, let last = elements.last else { return nil }
-            return try last.text()
+            let elements = try doc.body()?.getElementsByTag("p")
+            guard let elements, elements.count > 2 else { return nil }
+            return try elements.last()?.text()
         } catch {
             print(error)
             return nil
@@ -71,11 +71,12 @@ struct ImageData: Codable, Identifiable {
     var dimensions: String? {
         do {
             let doc: Document = try SwiftSoup.parse(description)
-            let img = try doc.select("img").first()
-            let width = try img?.attr("width")
-            let height = try img?.attr("height")
 
-            guard let width, let height else { return nil }
+            guard let img = try doc.getElementsByTag("img").first() else { return nil }
+
+            let width = try img.attr("width")
+            let height = try img.attr("height")
+
             return "\(width)x\(height)"
         } catch {
             print(error)

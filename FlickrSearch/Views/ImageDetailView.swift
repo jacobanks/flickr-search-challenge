@@ -11,8 +11,8 @@ struct ImageDetailView: View {
 
     private let imageData: ImageData
 
-    init(_ photo: ImageData) {
-        self.imageData = photo
+    init(_ imageData: ImageData) {
+        self.imageData = imageData
     }
 
     var body: some View {

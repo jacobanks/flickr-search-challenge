@@ -43,7 +43,7 @@ class ImageListViewModel: ObservableObject {
     func loadImages(_ search: String = "") {
         let tags = search.replacingOccurrences(of: " ", with: ",")
 
-        Networking.request(tags)
+        Networking.requestImages(tags)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completed in
                 self?.isLoading = false
