@@ -12,10 +12,6 @@ struct ImageListView: View {
 
     @StateObject private var viewModel: ImageListViewModel = .init()
 
-    private let gridColumns: [GridItem] = [
-        .init(.adaptive(minimum: 150, maximum: .infinity), spacing: 4)
-    ]
-
     var body: some View {
         imageGrid()
             .navigationTitle("Home")

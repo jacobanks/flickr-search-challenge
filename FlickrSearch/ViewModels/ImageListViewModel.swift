@@ -41,7 +41,9 @@ class ImageListViewModel: ObservableObject {
     }
 
     func loadImages(_ search: String = "") {
-        let tags = search.replacingOccurrences(of: " ", with: ",")
+        let tags = search
+            .replacingOccurrences(of: " ", with: ",")
+            .replacingOccurrences(of: ",,", with: ",")
 
         Networking.requestImages(tags)
             .receive(on: DispatchQueue.main)
