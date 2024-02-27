@@ -26,33 +26,7 @@ final class FlickrSearchTests: XCTestCase {
         let viewModel: ImageListViewModel = .init()
         XCTAssert(viewModel.imageList.count == 0)
 
-        try loadImages(viewModel)
-    }
-
-    func testSearchImages() throws {
-        // Init view model
-        let viewModel: ImageListViewModel = .init()
-
-        // Load images with the search text
-        let searchText1 = "porcupine"
-        try loadImages(viewModel, search: searchText1)
-        XCTAssert(viewModel.imageList[0].tags.contains(searchText1)) // Confirm that the search tags appear in response
-
-        // Try another search string
-        let searchText2 = "red car"
-        try loadImages(viewModel, search: searchText2)
-
-        let tags = viewModel.imageList[0].tags
-        let searchArray = searchText2.split(separator: " ")
-
-        // Confirm that ALL of the search tags appear in response
-        XCTAssert(searchArray.filter { tags.contains($0) }.count == searchArray.count)
-    }
-
-    private func loadImages(_ viewModel: ImageListViewModel, search: String = "") throws {
         let expectation = XCTestExpectation(description: "")
-
-        viewModel.loadImages(search)
 
         // Wait for isLoading to update
         viewModel.$isLoading
@@ -63,6 +37,43 @@ final class FlickrSearchTests: XCTestCase {
             .store(in: &cancellables)
 
         wait(for: [expectation])
+
+        // Confirm that imageList loaded data and is not empty
+        XCTAssert(!viewModel.imageList.isEmpty)
+        XCTAssert(viewModel.isLoading == false)
+    }
+
+    func testSearchImages() throws {
+        // Init view model
+        let viewModel: ImageListViewModel = .init()
+
+        // Load images with the search text
+        let searchText1 = "porcupine"
+        try searchImages(viewModel, search: searchText1)
+
+        // Try another search string with multiple words
+        let searchText2 = "red car"
+        try searchImages(viewModel, search: searchText2)
+    }
+
+    private func searchImages(_ viewModel: ImageListViewModel, search: String = "") throws {
+        let expectation = XCTestExpectation(description: "")
+        let searchArray = search.split(separator: " ")
+
+        // Update searchTerms so new images will be loaded
+        viewModel.searchTerms = search
+
+        // Wait for the image list to update
+        viewModel.$imageList
+            .sink { images in
+                // Confirm that ALL of the search tags appear in the images
+                let matchingTags = searchArray.filter { images.first?.tags.contains($0) ?? false }
+                guard matchingTags.count == searchArray.count else { return }
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        wait(for: [expectation], timeout: 10)
 
         // Confirm that imageList loaded data and is not empty
         XCTAssert(!viewModel.imageList.isEmpty)

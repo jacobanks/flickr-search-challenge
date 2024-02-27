@@ -46,8 +46,6 @@ class ImageListViewModel: ObservableObject {
         Networking.requestImages(tags)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completed in
-                self?.isLoading = false
-
                 switch completed {
                 case .finished: break
                 case let .failure(error):
@@ -57,6 +55,7 @@ class ImageListViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] images in
                 self?.imageList = images
+                self?.isLoading = false
             }
             .store(in: &cancellables)
     }

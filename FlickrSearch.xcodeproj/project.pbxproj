@@ -20,7 +20,6 @@
 		176B33C82B8D3ED900AECB60 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176B33C72B8D3ED900AECB60 /* ImageData.swift */; };
 		176B33CD2B8D407F00AECB60 /* String+slice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176B33CC2B8D407F00AECB60 /* String+slice.swift */; };
 		176B33D12B8D455F00AECB60 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176B33D02B8D455F00AECB60 /* Networking.swift */; };
-		176B33D42B8E458000AECB60 /* ProgressModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176B33D32B8E458000AECB60 /* ProgressModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +47,6 @@
 		176B33C72B8D3ED900AECB60 /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
 		176B33CC2B8D407F00AECB60 /* String+slice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+slice.swift"; sourceTree = "<group>"; };
 		176B33D02B8D455F00AECB60 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
-		176B33D32B8E458000AECB60 /* ProgressModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,7 +132,6 @@
 			children = (
 				176B33BE2B8D183600AECB60 /* ImageListView.swift */,
 				176B33C02B8D184100AECB60 /* ImageDetailView.swift */,
-				176B33D22B8E457200AECB60 /* Modifiers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -161,14 +158,6 @@
 				176B33D02B8D455F00AECB60 /* Networking.swift */,
 			);
 			path = Networking;
-			sourceTree = "<group>";
-		};
-		176B33D22B8E457200AECB60 /* Modifiers */ = {
-			isa = PBXGroup;
-			children = (
-				176B33D32B8E458000AECB60 /* ProgressModifier.swift */,
-			);
-			path = Modifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,7 +271,6 @@
 				176B33952B8CE85400AECB60 /* ContentView.swift in Sources */,
 				176B33C62B8D3ED400AECB60 /* ImageList.swift in Sources */,
 				176B33932B8CE85400AECB60 /* FlickrSearchApp.swift in Sources */,
-				176B33D42B8E458000AECB60 /* ProgressModifier.swift in Sources */,
 				176B33C12B8D184200AECB60 /* ImageDetailView.swift in Sources */,
 				176B33D12B8D455F00AECB60 /* Networking.swift in Sources */,
 				176B33C82B8D3ED900AECB60 /* ImageData.swift in Sources */,

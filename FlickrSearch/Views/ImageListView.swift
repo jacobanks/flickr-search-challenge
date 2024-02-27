@@ -34,6 +34,11 @@ struct ImageListView: View {
 
     private func imageGrid() -> some View {
         ScrollView {
+            if viewModel.isLoading {
+                ProgressView()
+                    .controlSize(.large)
+            }
+
             HStack(spacing: 4) {
                 VStack(spacing: 4) {
                     ForEach(viewModel.imageList[..<(viewModel.imageList.count/2)], content: gridItem(_:))
@@ -44,7 +49,6 @@ struct ImageListView: View {
                 }
             }
             .padding(12)
-            .progress($viewModel.isLoading)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .refreshable { viewModel.loadImages(viewModel.searchTerms) }
